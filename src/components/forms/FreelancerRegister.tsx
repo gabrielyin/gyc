@@ -35,7 +35,7 @@ export default function ClientRegister({ setIsRegister }: { setIsRegister: Dispa
         password: data.senha,
         phone: data.whatsapp,
         options: {
-          emailRedirectTo: 'http://localhost:3000'
+          emailRedirectTo: process.env.NEXT_PUBLIC_URL
         }
       })
 

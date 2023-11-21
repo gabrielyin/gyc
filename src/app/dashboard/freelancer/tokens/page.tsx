@@ -20,7 +20,7 @@ export default function Tokens() {
   }
 
   async function createCheckoutLink(priceId: string) {
-    const { data } = await axios.post('http://localhost:3000/api/create-checkout-session',
+    const { data } = await axios.post(process.env.NEXT_PUBLIC_URL + '/api/create-checkout-session',
       {
         priceId: priceId,
       }

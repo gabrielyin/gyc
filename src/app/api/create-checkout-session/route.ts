@@ -26,8 +26,8 @@ export async function POST(request: Request) {
     })
 
     const stripeSession = await stripe.checkout.sessions.create({
-      success_url: 'http://localhost:3000/dashboard/freelancer/tokens',
-      cancel_url: 'http://localhost:3000/dashboard/freelancer/tokens',
+      success_url: process.env.NEXT_PUBLIC_URL + '/dashboard/freelancer/tokens',
+      cancel_url: process.env.NEXT_PUBLIC_URL + '/dashboard/freelancer/tokens',
       payment_method_types: ['card'],
       mode: 'payment',
       customer,
