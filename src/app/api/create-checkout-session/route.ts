@@ -4,11 +4,11 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from 'next/headers'
 import { NextResponse } from "next/server"
 
-const tokens: { [key: string]: number } = {
-  'price_1OAzQaCJeql6Khrki0QUJoEu': 1000,
-  'price_1OC1UcCJeql6KhrkVtaiQFW4': 2000,
-  'price_1OC1X5CJeql6Khrkonsf1hIh': 4000,
-}
+const tokens: { [key: string]: number } = {}
+
+tokens[process.env.NEXT_PUBLIC_STRIPE_PRICE1000 as string] = 1000;
+tokens[process.env.NEXT_PUBLIC_STRIPE_PRICE2000 as string] = 2000;
+tokens[process.env.NEXT_PUBLIC_STRIPE_PRICE4000 as string] = 4000;
 
 export async function POST(request: Request) {
   const { priceId } = await request.json()

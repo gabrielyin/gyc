@@ -57,7 +57,7 @@ export default function Tokens() {
                   <div className="flex items-center justify-between">
                     <p className="font-semibold text-xl">R$ 59,99</p>
 
-                    <Button onClick={() => createCheckoutLink('price_1OAzQaCJeql6Khrki0QUJoEu')}>Comprar</Button>
+                    <Button onClick={() => createCheckoutLink(process.env.NEXT_PUBLIC_STRIPE_PRICE1000 as string)}>Comprar</Button>
                   </div>
                 </div>
               </div>
@@ -70,7 +70,7 @@ export default function Tokens() {
                   <div className="flex items-center justify-between">
                     <p className="font-semibold text-xl">R$ 99,99</p>
 
-                    <Button onClick={() => createCheckoutLink('price_1OC1UcCJeql6KhrkVtaiQFW4')}>Comprar</Button></div>
+                    <Button onClick={() => createCheckoutLink(process.env.NEXT_PUBLIC_STRIPE_PRICE2000 as string)}>Comprar</Button></div>
                 </div>
               </div>
 
@@ -82,7 +82,7 @@ export default function Tokens() {
                   <div className="flex items-center justify-between">
                     <p className="font-semibold text-xl">R$ 179,99</p>
 
-                    <Button onClick={() => createCheckoutLink('price_1OC1X5CJeql6Khrkonsf1hIh')}>Comprar</Button></div>
+                    <Button onClick={() => createCheckoutLink(process.env.NEXT_PUBLIC_STRIPE_PRICE4000 as string)}>Comprar</Button></div>
                 </div>
               </div>
             </div>
