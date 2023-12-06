@@ -6,11 +6,23 @@ import { useQuery } from "@tanstack/react-query"
 import Link from "next/link"
 import { useState } from "react"
 
+interface IPedidos {
+  categoria: string | null;
+  created_at: string;
+  descricao: string | null;
+  duracao: number | null;
+  id: number;
+  max: number;
+  nome: string | null;
+  status: boolean | null;
+  user_id: string | null;
+}
+
 export default function Freelancer() {
   const supabase = createClientComponentClient()
   const [searchQuery, setSearchQuery] = useState('');
 
-  async function getPedidos() {
+  async function getPedidos(): Promise<IPedidos[]> {
     const { data } = await supabase.from('pedidos').select('*')
 
     return data
@@ -25,9 +37,9 @@ export default function Freelancer() {
 
   const filteredData = data!.filter((pedido) => {
     return (
-      searchTerm.test(pedido.nome) ||
-      searchTerm.test(pedido.categoria) ||
-      searchTerm.test(pedido.descricao)
+      searchTerm.test(pedido.nome as string) ||
+      searchTerm.test(pedido.categoria as string) ||
+      searchTerm.test(pedido.descricao as string)
     );
   });
 

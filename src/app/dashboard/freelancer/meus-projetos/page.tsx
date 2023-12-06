@@ -17,6 +17,7 @@ interface IPedidos {
   status: boolean | null;
   user_id: string | null;
 }
+
 interface IConexoes {
   created_at: string;
   id: string;
