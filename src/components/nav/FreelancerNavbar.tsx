@@ -22,7 +22,7 @@ export default function FreelancerNavbar() {
               <Link href="/dashboard/cliente/pedido">
                 Buscar projetos
               </Link>
-              <Link href="/dashboard/freelancer">
+              <Link href="/dashboard/freelancer/meus-projetos">
                 Meus Projetos
               </Link>
             </ul>

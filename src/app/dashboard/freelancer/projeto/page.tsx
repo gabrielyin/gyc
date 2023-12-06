@@ -34,8 +34,30 @@ export default function Projeto() {
     }
   }
 
-  async function createConection(pedidosId: string, quantity: number) {
+  async function createConection(pedidosId: string, quantity: number, cost: number) {
     const { data: { user } } = await supabase.auth.getUser()
+
+    const tokensResponse = await supabase.from('tokens').select('tokens').eq('user_id', user?.id).single()
+
+    if (tokensResponse.error) {
+      toast({ variant: 'destructive', title: 'Erro', description: 'Tokens insuficientes' })
+      return
+    }
+
+    const currentTokens = tokensResponse.data.tokens
+
+    if (currentTokens < cost) {
+      toast({ variant: 'destructive', title: 'Erro', description: 'Tokens insuficientes' })
+      return
+    }
+
+    const token = await supabase.from('tokens').update({ tokens: currentTokens - cost }).eq('user_id', user?.id)
+
+    if (token.error) {
+      toast({ variant: 'destructive', title: 'Erro', description: 'Erro ao criar conexao' })
+      return
+    }
+
     const response = await supabase.from('conexoes').insert({
       pedido_id: pedidosId,
       user_id: user?.id,
@@ -71,23 +93,27 @@ export default function Projeto() {
             <p>{data.max}/4</p>
           </div>
           {!data.profile && (
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button disabled={data.max >= 4} className={data.max >= 4 ? 'bg-opacity-25' : ''}>Desbloquer</Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Tem certeza que deseja desbloquer?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    Após desbloquer o contato você terá acesso ao contato do cliente.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                  <AlertDialogAction onClick={() => createConection(data.id, data.max)}>Desbloquear</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+            <div className="space-y-2">
+              <h3 className="text-lg font-bold">{100 - (25 * data.max)} Tokens</h3>
+
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button disabled={data.max >= 4} className={data.max >= 4 ? 'bg-opacity-25' : ''}>Desbloquear</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Tem certeza que deseja desbloquear?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Após desbloquear o contato você terá acesso ao contato do cliente.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                    <AlertDialogAction onClick={() => createConection(data.id, data.max, 100 - (25 * data.max))}>Desbloquear</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
           )}
 
           {data.profile && (

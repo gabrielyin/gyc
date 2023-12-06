@@ -57,7 +57,10 @@ export default function ClientLogin({ setIsRegister }: { setIsRegister: Dispatch
           name="senha"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Senha</FormLabel>
+              <FormLabel>
+                <p>Senha</p>
+                <p className="underline text-blue-500 cursor-pointer hover:text-blue-600">Esqueci a senha</p>
+              </FormLabel>
               <FormControl>
                 <Input placeholder="Senha" type="password" {...field} />
               </FormControl>

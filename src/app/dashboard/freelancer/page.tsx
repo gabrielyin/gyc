@@ -49,6 +49,7 @@ export default function Freelancer() {
               <p className="text-blue-500 text-sm font-semibold">{pedido.categoria}</p>
               <p className="text-sm">{pedido.descricao}</p>
               <p>{pedido.max}/4 Propostas Recebidas</p>
+              <h3 className="text-lg font-bold">{100 - (25 * pedido.max)} Tokens</h3>
             </Link>
           )
         })}
