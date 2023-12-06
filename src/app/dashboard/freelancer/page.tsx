@@ -25,7 +25,7 @@ export default function Freelancer() {
   async function getPedidos(): Promise<IPedidos[]> {
     const { data } = await supabase.from('pedidos').select('*')
 
-    return data
+    return data as IPedidos[]
   }
 
   const { data = [] } = useQuery({
